@@ -13,6 +13,9 @@ repositories {
 java {
     withSourcesJar()
     withJavadocJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 dependencies {
@@ -22,6 +25,17 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+// Windows 기본 인코딩(CP949) 환경에서도 한글/이모지가 깨지지 않도록 UTF-8 강제
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
+    options.docEncoding = 'UTF-8'
 }
 
 publishing {
