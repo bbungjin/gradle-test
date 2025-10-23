@@ -1,8 +1,6 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'org.springframework.boot' version '3.5.6'
-    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'org.example.gradletest'
@@ -21,16 +19,10 @@ java {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.3.3'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.3.3'
 }
 
-test {
-    useJUnitPlatform()
-}
-
-// Windows 기본 인코딩(CP949) 환경에서도 한글/이모지가 깨지지 않도록 UTF-8 강제
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
@@ -45,7 +37,6 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            // 명시적으로 artifactId 지정 (소비 프로젝트에서 사용할 이름)
             artifactId = 'social-kakao-test'
         }
     }
